@@ -32,7 +32,7 @@ module.exports ={
       "tsx",
       "json",
       "jsx",
-    ],
+     ],
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
