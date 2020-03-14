@@ -21,3 +21,19 @@ it('当header回车是时，undolist应该新增内容', () => {
     expect(wrapper.state('undoList').length).toBe(1)
     expect(wrapper.state('undoList')[0]).toBe('学习React')
 }); 
+
+it("todoList应该给未完成的列表传递list数据和删除方法", () => {
+    const wrapper = shallow(<TodoList/>);
+    const UndoList = wrapper.find("UndoList");
+    expect(UndoList.prop('list')).toBeTruthy();
+    expect(UndoList.prop('deleteItem')).toBeTruthy();
+});
+
+it("当delete执行时，undolist应该删除内容", () => {
+    const wrapper = shallow(<TodoList/>);
+    wrapper.setState({
+        undoList:["1",'2']
+    })
+    wrapper.instance().deleteItem(1)
+    expect(wrapper.state('undoList')).toEqual(["1"]);
+});
