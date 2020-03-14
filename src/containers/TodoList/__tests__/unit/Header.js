@@ -1,12 +1,11 @@
 import React from "react";
-import Enzyme, { shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import  { shallow } from "enzyme";
 import Header from "../../components/Header";
+import { finTestWrapper } from "../../../../utils/testUtils";
 
-Enzyme.configure({ adapter: new Adapter() });
 it("Header 组件包含一个input框", () => {
     const wrapper = shallow(<Header />);
-    const inputElem = wrapper.find("[data-test='input']");
+    const inputElem = finTestWrapper(wrapper, "input");
     expect(inputElem.length).toBe(1);
 });
 
@@ -54,7 +53,7 @@ it("Header 组件 inout输入回车时，有内容，有操作", () => {
     });
     expect(fn).toHaveBeenCalled();
     expect(fn).toHaveBeenLastCalledWith("学习React");
-    expect(inputElem.prop('value')).toBe('');
+    expect(inputElem.prop("value")).toBe("");
 });
 
 it("Header 组件 inout输入回车时，有内容，有操作,最后应该清除掉", () => {
@@ -67,6 +66,11 @@ it("Header 组件 inout输入回车时，有内容，有操作,最后应该清�
     inputElem.simulate("keyup", {
         keyCode: 13
     });
-    const newinputElem =  wrapper.find("[data-test='input']");
-    expect(newinputElem.prop('value')).toBe('');
+    const newinputElem = wrapper.find("[data-test='input']");
+    expect(newinputElem.prop("value")).toBe("");
+});
+
+it("Header渲染样式正常", () => {
+    const wrapper = shallow(<Header />);
+    expect(wrapper).toMatchSnapshot();
 });

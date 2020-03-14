@@ -9,7 +9,8 @@ export default class Header extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="header">
+                TodoList
                 <input
                     data-test="input"
                     onChange={e => {
