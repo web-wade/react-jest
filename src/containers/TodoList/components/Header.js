@@ -1,22 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
 
-export default class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ""
-        };
-    }
+class Header extends Component {
     render() {
+        const { handInputChange } = this.props;
         return (
             <div className="header">
                 TodoList
                 <input
                     data-test="input"
                     onChange={e => {
-                        this.setState({ value: e.target.value });
+                        handInputChange(e.target.value);
                     }}
-                    value={this.state.value}
+                    value={this.props.value}
                     onKeyUp={this.handInputKeyUp}
                 />
             </div>
@@ -24,11 +21,28 @@ export default class Header extends Component {
     }
 
     handInputKeyUp = e => {
-        if (e.keyCode === 13 && this.state.value) {
-            this.props.addUndoItem(this.state.value);
-            this.setState({
-                value:""
-            })
+        if (e.keyCode === 13 && this.props.value) {
+            this.props.addUndoItem(this.props.value);
+            this.props.handInputKeyUp();
         }
     };
 }
+
+const mapState = state => {
+    return {
+        value: state.todo.inputValue
+    };
+};
+
+const mapDispatch = dispatch => {
+    return {
+        handInputChange(value) {
+            dispatch(actions.changeInputValue(value));
+        },
+        handInputKeyUp() {
+            dispatch(actions.handInputKeyUp());
+        }
+    };
+};
+
+export default connect(mapState, mapDispatch)(Header);
