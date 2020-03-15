@@ -13,16 +13,24 @@ export default class TodoList extends Component {
     }
 
     componentDidMount() {
-        axios
-            .get("/undoList.json")
-            .then(res => {
-                console.log("111111")
-                console.log(res)
-                this.setState({ undoList: res.data });
-            })
-            .catch(e => {
-                // console.log(e);
-            });
+        // axios
+        //     .get("/undoList.json")
+        //     .then(res => {
+        //         this.setState({ undoList: res.data });
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     });
+        setTimeout(() => {
+            axios
+                .get("/undoList.json")
+                .then(res => {
+                    this.setState({ undoList: res.data });
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        }, 3000);
     }
 
     render() {
