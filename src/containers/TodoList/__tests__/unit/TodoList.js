@@ -2,9 +2,9 @@ import React from "react";
 import { shallow } from "enzyme";
 import TodoList from "../../index";
 
-it('TodoList 初始化列表为空', () => {
-    const wrapper = shallow(<TodoList/>);
-    expect(wrapper.state('undoList')).toEqual([])
+it("TodoList 初始化列表为空", () => {
+    const wrapper = shallow(<TodoList />);
+    expect(wrapper.state("undoList")).toEqual([]);
 });
 
 // it('TodoList 应该给Header传递一个增加undoList内容的方法', () => {
