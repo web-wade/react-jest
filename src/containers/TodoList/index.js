@@ -28,7 +28,7 @@ export default class TodoList extends Component {
                     this.setState({ undoList: res.data });
                 })
                 .catch(e => {
-                    console.log(e);
+                    // console.log(e);
                 });
         }, 3000);
     }

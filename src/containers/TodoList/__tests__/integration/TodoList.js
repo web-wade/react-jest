@@ -4,9 +4,11 @@ import TodoList from "../../index";
 import { Provider } from "react-redux";
 import { finTestWrapper } from "../../../../utils/testUtils";
 import store from "../../../../store/createStore";
+import axios from "../../__mocks__/axios";
 
 beforeEach(() => {
     jest.useFakeTimers();
+    axios.success = true;
 });
 
 it("1.输入框输入内容 2.点击回车 3.列表展示用户输入的内容", () => {
@@ -67,6 +69,22 @@ it("1.用户打开页面 2.应该展示接口返回的数据 ", done => {
         wrapper.update();
         const listItem = finTestWrapper(wrapper, "list-item");
         expect(listItem.length).toBe(1);
+        done();
+    });
+});
+
+it("1.用户打开页面请求不正常 2.页面能展示 ", done => {
+    axios.success = false;
+    const wrapper = mount(
+        <Provider store={store}>
+            <TodoList />
+        </Provider>
+    );
+    jest.runAllTimers();
+    process.nextTick(() => {
+        wrapper.update();
+        const listItem = finTestWrapper(wrapper, "list-item");
+        expect(listItem.length).toBe(0);
         done();
     });
 });
